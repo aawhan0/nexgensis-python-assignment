@@ -31,3 +31,24 @@ def test_delivery_simulation() -> None:
     assert sum(item["packages_delivered"] for item in report.values()) == 5
     assert all(item["total_distance"] >= 0 for item in report.values())
     assert all(item["efficiency"] >= 0 for item in report.values())
+
+
+def test_alternate_json_input(tmp_path) -> None:
+    import json
+
+    alternate = {
+        "warehouses": {"W1": [0, 0]},
+        "agents": {"A1": [0, 0], "A2": [100, 100]},
+        "packages": [
+            {"id": "P1", "warehouse": "W1", "destination": [3, 4]},
+        ],
+    }
+    path = tmp_path / "alternate.json"
+    path.write_text(json.dumps(alternate), encoding="utf-8")
+
+    data = load_data(str(path))
+    report = simulate_delivery(data)
+
+    assert report["A1"]["packages_delivered"] == 1
+    assert report["A2"]["packages_delivered"] == 0
+    assert report["A1"]["total_distance"] == 5.0
