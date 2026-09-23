@@ -52,6 +52,18 @@ python -m pytest test_assignment.py
 - Efficiency is total distance divided by the number of packages delivered. Agents with no deliveries have an efficiency of 0.
 - The assignment's sample report is treated as an example output format; the simulator calculates values from the stated routing logic rather than hard-coding those values.
 
+
+## Optional Enhancements
+
+The repository also includes small optional utilities from the assignment bonus section:
+
+- simulate_with_delays() adds reproducible random delivery delays using a seed.
+- ascii_route() provides a compact ASCII-style route representation.
+- add_agent_mid_day() demonstrates introducing a new agent for a remaining package set.
+- write_top_performers_csv() exports agents ordered by average distance per delivered package.
+
+These utilities are intentionally separate from the core simulation so the required report remains deterministic and easy to verify.
+
 ## Validation
 
-The included tests cover JSON loading, Euclidean distance, package assignment, package-count consistency, and non-negative delivery metrics.
+The included tests cover JSON loading, Euclidean distance, package assignment, package-count consistency, non-negative delivery metrics, alternate input handling, and the optional utilities.
